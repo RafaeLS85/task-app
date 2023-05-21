@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { getTasks } from "../services/tasks.api";
 
-export const useTasks = () => {
+export const useTasksList = () => {
   const [tasks, setTasks] = useState([]);
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(true);
