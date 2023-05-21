@@ -2,3 +2,30 @@ body {
   background: #202020;
   color: #fff;
 }
+
+a {
+  all: unset;
+}
+
+.icon path {
+  stroke: #fff;  //the color you want.
+}
+
+.loading-icon {
+  color: #2986cc ;
+  font-size: 2rem;
+  animation: animate 2s infinite;
+}
+
+.error-icon {
+  color: #e12626;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}

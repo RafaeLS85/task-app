@@ -11,8 +11,7 @@ export const useTasks = () => {
       getTasks()
         .then(({ data }) => {
           setTasks(data);
-          setLoading(false);
-          setErrors(false);
+          setLoading(false); 
         })
         .catch((err) => {
           setErrors(err);

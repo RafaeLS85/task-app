@@ -1,16 +1,20 @@
 import { useTasks } from "../hooks/useTasks";
 import { TaskCard } from "./TaskCard";
+import { Error } from "./shared/Error";
+import { Spinner } from "./shared/Spinner";
 
 export const TaskList = () => {
   const { state } = useTasks();
   const { data, loading, errors } = state;
 
-  if (errors) return <h1>Error</h1>;
+  if (errors) return <Error errors={errors} />;
 
   return (
     <>
-      <div>{loading && <div>Loading...</div>}</div>
-      <div>{data && data.map((task) => <TaskCard key={task.id} task={task}/>)}</div>
+      <div>{loading && <Spinner />}</div>
+      <div>
+        {data && data.map((task) => <TaskCard key={task.id} task={task} />)}
+      </div>
     </>
   );
 };
