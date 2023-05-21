@@ -16,6 +16,12 @@ python manage.py runserver
 ```shell
 cd client
 npm install
-npm run dev
 ```
 
+## setup environment
+create .env file
+
+## run client app
+```shell
+npm run dev
+```

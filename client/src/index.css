@@ -1,3 +1,10 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: #202020;
   color: #fff;
@@ -8,11 +15,11 @@ a {
 }
 
 .icon path {
-  stroke: #fff;  //the color you want.
+  stroke: #fff;
 }
 
 .loading-icon {
-  color: #2986cc ;
+  color: #2986cc;
   font-size: 2rem;
   animation: animate 2s infinite;
 }
