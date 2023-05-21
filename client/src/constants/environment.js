@@ -1,0 +1,1 @@
+export const VITE_TASK_SERVICE = import.meta.env.VITE_TASK_SERVICE
