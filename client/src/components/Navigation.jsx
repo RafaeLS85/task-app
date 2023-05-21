@@ -1,113 +1,80 @@
-// import { Link } from "react-router-dom";
-// import styled from "styled-components";
-// import { GrFormAdd } from 'react-icons/gr'
-import {SiTask} from 'react-icons/si';
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { GoChecklist } from "react-icons/go";
+import { useEffect, useState } from "react";
 import "./Navigation.css";
 
-// const StyledNavBar = styled.nav`
-//   display: flex;
-//   gap: 2rem;
-//   background-color: #f3f6f4;
-//   padding: 1rem ;
-//   cursor: pointer;
-//   color:  black;
-//   font-size: 2rem ;
-//   font-weight: bold ;
-//   justify-content: center ;
-//   align-items: center ;
-// `;
-
-// const Button = styled.div`
-//     background-color: #2986cc ;
-//     color: white;
-//     border-radius: 5px ;
-//     padding: 0.5rem ;
-// `
+const StyledLi = styled.li`
+  cursor: pointer;
+`;
 
 export const Navigation = () => {
+  const [nav, setNav] = useState();
+  const [toggleIcon, setToggleIcon] = useState();
+  const [toggle, setToggle] = useState(true);
+
+  const Menu = () => {
+    return (
+      <ul id="menu">
+        <StyledLi>
+          <Link to="/tasks">Home</Link>
+        </StyledLi>
+        <StyledLi>
+          <Link to="/tasks-create">Create</Link>
+        </StyledLi>
+        <StyledLi>
+          <a href="#about">About</a>
+        </StyledLi>
+        <StyledLi>
+          <a href="#contact">Contact</a>
+        </StyledLi>
+      </ul>
+    );
+  };
+
   useEffect(() => {
-    setTimeout(() => {
-      let menuIcon = document.querySelector(".menuIcon");
-      let nav = document.querySelector(".overlay-menu");
+    setNav(document.querySelector(".overlay-menu"));
+    setToggleIcon(document.querySelector(".menuIcon"));
+  }, [toggleIcon, nav, toggle]);
 
-      menuIcon.addEventListener("click", () => {
-        if (nav.style.transform != "translateX(0%)") {
-          nav.style.transform = "translateX(0%)";
-          nav.style.transition = "transform 0.2s ease-out";
-        } else {
-          nav.style.transform = "translateX(-100%)";
-          nav.style.transition = "transform 0.2s ease-out";
-        }
-      });
-
-      // Toggle Menu Icon ========================================
-      let toggleIcon = document.querySelector(".menuIcon");
-
-      toggleIcon.addEventListener("click", () => {
-        if (toggleIcon.className != "menuIcon toggle") {
-          toggleIcon.className += " toggle";
-        } else {
-          toggleIcon.className = "menuIcon";
-        }
-      });
-    }, 1000);
-  }, []);
+  function handleClick() {
+    if (nav.style.transform != "translateX(0%)") {
+      nav.style.transform = "translateX(0%)";
+      nav.style.transition = "transform 0.2s ease-out";
+    } else {
+      nav.style.transform = "translateX(-100%)";
+      nav.style.transition = "transform 0.2s ease-out";
+    }
+    if (toggleIcon.className != "menuIcon toggle") {
+      setToggle(false);
+      toggleIcon.className += " toggle";
+    } else {
+      setToggle(true);
+      toggleIcon.className = "menuIcon";
+    }
+  }
 
   return (
-    // <StyledNavBar>
-    //   <Link to="/tasks">Tasks App</Link>
-    //   <Button>
-    //     <Link to="/tasks-create"><GrFormAdd size={35} style={{ verticalAlign: 'bottom'}} classNameName="icon" /></Link>
-    //   </Button>
-    // </StyledNavBar>
     <>
       <nav id="navbar" className="">
         <div className="nav-wrapper">
           <div className="logo">
-            <a href="#home">
-              <SiTask />
-               Tasks
+            <a>
+              <GoChecklist size={35} style={{ verticalAlign: "middle" }} />
+              Tasks APP
             </a>
           </div>
-
-          <ul id="menu">
-            <li>
-              <a href="#home">Home</a>
-            </li>
-            <li>
-              <a href="#services">Services</a>
-            </li>
-            <li>
-              <a href="#about">About</a>
-            </li>
-            <li>
-              <a href="#contact">Contact</a>
-            </li>
-          </ul>
+          {toggle && <Menu />}
         </div>
       </nav>
 
-      <div className="menuIcon">
+      <div className="menuIcon" onClick={(e) => handleClick(e)}>
         <span className="icon icon-bars"></span>
         <span className="icon icon-bars overlay"></span>
       </div>
 
       <div className="overlay-menu">
-        <ul id="menu">
-          <li>
-            <a href="#home">Home</a>
-          </li>
-          <li>
-            <a href="#services">Services</a>
-          </li>
-          <li>
-            <a href="#about">About</a>
-          </li>
-          <li>
-            <a href="#contact">Contact</a>
-          </li>
-        </ul>
+        <Menu />
       </div>
     </>
   );
