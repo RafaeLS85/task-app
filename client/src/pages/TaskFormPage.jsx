@@ -1,20 +1,53 @@
 import { useForm } from "react-hook-form";
-import { createTasks } from "../services/tasks.api";
-import { useNavigate } from "react-router-dom";
+import {
+  createTasks,
+  deleteTasks,
+  updateTasks,
+  getTask,
+} from "../services/tasks.service";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 export const TaskFormPage = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const onSubmit = handleSubmit(async (data) => {
-    await createTasks(data);
+    if (!id) {
+      await createTasks(data);
+    } else {
+      await updateTasks(id, data);
+    }
     navigate("/tasks");
   });
+
+  const handleDelete = async (id) => {
+    const ok = window.confirm("Delete task?");
+    if (ok) {
+      await deleteTasks(id);
+      navigate("/tasks");
+    }
+  };
+
+  useEffect(() => {
+    async function loadTask() {
+      if (id) {
+        const {
+          data: { title, description },
+        } = await getTask(id);
+        setValue("title", title);
+        setValue("description", description);
+      }
+    }
+    loadTask();
+  }, []);
 
   return (
     <div>
@@ -33,6 +66,7 @@ export const TaskFormPage = () => {
         {errors.description && <span>Description is required</span>}
         <button>Save</button>
       </form>
+      {id && <button onClick={() => handleDelete(id)}>Delete</button>}
     </div>
   );
 };
