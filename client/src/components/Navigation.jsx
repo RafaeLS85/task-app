@@ -16,18 +16,18 @@ export const Navigation = () => {
   const Menu = () => {
     return (
       <ul id="menu">
-        <StyledLi>
+        {/* <StyledLi>
           <Link to="/tasks">Home</Link>
-        </StyledLi>
+        </StyledLi> */}
         <StyledLi>
-          <Link to="/tasks-create">Create</Link>
+          <Link to="/tasks-create">+ New Task</Link>
         </StyledLi>
-        <StyledLi>
+        {/* <StyledLi>
           <a href="#about">About</a>
         </StyledLi>
         <StyledLi>
           <a href="#contact">Contact</a>
-        </StyledLi>
+        </StyledLi> */}
       </ul>
     );
   };
@@ -59,10 +59,10 @@ export const Navigation = () => {
       <nav id="navbar" className="">
         <div className="nav-wrapper">
           <div className="logo">
-            <a>
+            {/* <StyledLi> */}
               <GoChecklist size={35} style={{ verticalAlign: "middle" }} />
-              Tasks APP
-            </a>
+              <Link to="/tasks">Tasks APP</Link> 
+            {/* </StyledLi> */}
           </div>
           {toggle && <Menu />}
         </div>

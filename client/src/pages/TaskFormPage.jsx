@@ -7,6 +7,7 @@ import {
 } from "../services/tasks.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { toast } from 'react-hot-toast'
 
 export const TaskFormPage = () => {
   const {
@@ -22,8 +23,12 @@ export const TaskFormPage = () => {
   const onSubmit = handleSubmit(async (data) => {
     if (!id) {
       await createTasks(data);
+      toast.success('Task created successfully', {
+        position: 'bottom-right',
+      })
     } else {
       await updateTasks(id, data);
+      toast.success('Task updated successfully',{position: 'bottom-right',})
     }
     navigate("/tasks");
   });
@@ -32,6 +37,7 @@ export const TaskFormPage = () => {
     const ok = window.confirm("Delete task?");
     if (ok) {
       await deleteTasks(id);
+      toast.success('Task deleted',{position: 'bottom-right',})
       navigate("/tasks");
     }
   };

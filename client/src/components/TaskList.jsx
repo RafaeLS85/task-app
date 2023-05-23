@@ -5,7 +5,7 @@ import { Spinner } from "./shared/Spinner";
 
 export const TaskList = () => {
   const { state } = useTasksList();
-  const { data, loading, errors } = state;
+  const { data: { results }, loading, errors } = state;
 
   if (errors) return <Error errors={errors} />;
 
@@ -13,7 +13,7 @@ export const TaskList = () => {
     <>
       <div>{loading && <Spinner />}</div>
       <div>
-        {data && data.map((task) => <TaskCard key={task.id} task={task} />)}
+        {results && results.map((task) => <TaskCard key={task.id} task={task} />)}
       </div>
     </>
   );
